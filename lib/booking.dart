@@ -28,4 +28,13 @@ class Booking {
       type: json['type'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'patient': patient,
+      'doctor': {'nom': doctor.name, 'prenom': doctor.prenom},
+      'date': date,
+      'type': type,
+    };
+  }
 }

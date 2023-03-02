@@ -1,4 +1,5 @@
 import 'package:calendar_agenda/calendar_agenda.dart';
+import 'package:clinick_client/booking.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:flutter/material.dart';
@@ -138,7 +139,57 @@ class _ReservationPageState extends State<ReservationPage> {
                             );
                             return;
                           }
-                          context.push('/reservation');
+
+                          // AlertDialog
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Confirmation'),
+                                content: const Text(
+                                    'Voulez-vous réserver ce créneau ?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Annuler'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // ajouter la reservation
+                                      DateTime date = DateTime(
+                                        dateSelected.year,
+                                        dateSelected.month,
+                                        dateSelected.day,
+                                        int.parse(time.split(':')[0]),
+                                        int.parse(time.split(':')[1]),
+                                      );
+                                      // user connecté
+                                      String? user = FirebaseAuth
+                                          .instance.currentUser!.displayName;
+                                      Booking booking = Booking(
+                                          date: date,
+                                          doctor: state.selectedDoctor!,
+                                          patient: user.toString(),
+                                          type: 'Visite');
+                                      state.addBooking(booking);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content:
+                                              Text('Réservation confirmée'),
+                                        ),
+                                      );
+
+                                      context.push('/');
+                                    },
+                                    child: const Text('Confirmer'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                       ),
                     );

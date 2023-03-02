@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'booking.dart';
 import 'doctor.dart';
 import 'firebase_options.dart';
-import 'medecin_booking.dart';
 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
@@ -80,6 +79,14 @@ class ApplicationState extends ChangeNotifier {
 
   void setSelectedDoctor(Doctor doctor) {
     _selectedDoctor = doctor;
+    notifyListeners();
+  }
+
+  Future<void> addBooking(Booking booking) async {
+    await FirebaseFirestore.instance
+        .collection('booking')
+        .add(booking.toJson());
+    _bookings.add(booking);
     notifyListeners();
   }
 
