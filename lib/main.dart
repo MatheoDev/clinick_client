@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
-import 'classment_page.dart';
+import 'reservation_page.dart';
 import 'home_page.dart';
 
 void main() {
@@ -90,8 +90,8 @@ final _router = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/classment',
-      builder: (context, state) => const ClassmentPage(),
+      path: '/doctor',
+      builder: (context, state) => const ReservationPage(),
     ),
   ],
 );

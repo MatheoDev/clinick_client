@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('PME App'),
+              child: Text('Clinick App'),
             ),
             ListTile(
               title: const Text('Accueil'),
@@ -138,7 +138,17 @@ class HomePage extends StatelessWidget {
                                         size: 30.0,
                                       ),
                                       onPressed: () {
-                                        context.push('/doctor/${doctor.name}');
+                                        // mettre dans le state le docteur selectionné
+                                        context
+                                            .read<ApplicationState>()
+                                            .setSelectedDoctor(doctor);
+
+                                        // call getBookings
+                                        context
+                                            .read<ApplicationState>()
+                                            .getBookings();
+
+                                        context.push('/doctor');
                                       },
                                     ),
                                   ],

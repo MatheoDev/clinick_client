@@ -7,8 +7,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'booking.dart';
 import 'doctor.dart';
 import 'firebase_options.dart';
+import 'medecin_booking.dart';
 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
@@ -17,6 +19,12 @@ class ApplicationState extends ChangeNotifier {
 
   bool _loggedIn = false;
   bool get loggedIn => _loggedIn;
+
+  Doctor? _selectedDoctor;
+  Doctor? get selectedDoctor => _selectedDoctor;
+
+  List<Booking> _bookings = [];
+  List<Booking> get bookings => _bookings;
 
   StreamSubscription<QuerySnapshot>? _getDoctorsSubscription;
   List<Doctor> _getDoctors = [];
@@ -54,6 +62,42 @@ class ApplicationState extends ChangeNotifier {
       }
       notifyListeners();
     });
+  }
+
+  Future<void> getBookings() async {
+    final doctor = await FirebaseFirestore.instance
+        .collection('booking')
+        .where('doctor.nom', isEqualTo: selectedDoctor!.name)
+        .where('doctor.prenom', isEqualTo: selectedDoctor!.prenom)
+        .get();
+    final slots = doctor.docs.map((e) => e.data()).toList();
+    List<Booking> bookings = [];
+    for (final slot in slots) {
+      bookings.add(Booking.fromJson(slot));
+    }
+    _bookings = bookings;
+  }
+
+  void setSelectedDoctor(Doctor doctor) {
+    _selectedDoctor = doctor;
+    notifyListeners();
+  }
+
+  bool isReserved(String time, DateTime date) {
+    // time = '10:00' ou '10:30'
+    DateTime dateTime = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      int.parse(time.split(':')[0]),
+      int.parse(time.split(':')[1]),
+    );
+    return _bookings.any((element) =>
+        element.date.year == dateTime.year &&
+        element.date.month == dateTime.month &&
+        element.date.day == dateTime.day &&
+        element.date.hour == dateTime.hour &&
+        element.date.minute == dateTime.minute);
   }
 
   // Future<DocumentReference> addData(
