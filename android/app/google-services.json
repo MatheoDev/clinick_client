@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "978829565704",
+    "project_id": "clinick-api",
+    "storage_bucket": "clinick-api.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978829565704:android:2d960fb7ace17e5ccc16bd",
+        "android_client_info": {
+          "package_name": "com.example.clinick_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978829565704-ifpp9r1b7c5r38bsf2bguhjs6un8tvqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB69ZZixq-Ty14bRObnFGcNBeuiY-1jR9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978829565704-ifpp9r1b7c5r38bsf2bguhjs6un8tvqd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "978829565704-k24dlqukootutp8en9vtjetkur1l9j5b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pmeApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:978829565704:android:7f0110bea21da1bbcc16bd",
+        "android_client_info": {
+          "package_name": "com.example.pme_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "978829565704-ifpp9r1b7c5r38bsf2bguhjs6un8tvqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB69ZZixq-Ty14bRObnFGcNBeuiY-1jR9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "978829565704-ifpp9r1b7c5r38bsf2bguhjs6un8tvqd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "978829565704-k24dlqukootutp8en9vtjetkur1l9j5b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pmeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
