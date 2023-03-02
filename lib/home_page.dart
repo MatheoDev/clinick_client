@@ -39,10 +39,10 @@ class HomePage extends StatelessWidget {
               ),
             if (context.watch<ApplicationState>().loggedIn)
               ListTile(
-                title: const Text('Classement'),
+                title: const Text('Mes rendez-vous'),
                 onTap: () {
                   Navigator.pop(context);
-                  context.push('/classment');
+                  context.push('/rdv');
                 },
               ),
             if (!context.watch<ApplicationState>().loggedIn)
@@ -105,6 +105,14 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               ],
+            ),
+            // title header for the list of doctors
+            const Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'Liste des docteurs',
+                style: TextStyle(fontSize: 19),
+              ),
             ),
             Consumer<ApplicationState>(
               builder: (context, state, child) {

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
+import 'my_rdv_page.dart';
 import 'reservation_page.dart';
 import 'home_page.dart';
 
@@ -92,6 +93,10 @@ final _router = GoRouter(
     GoRoute(
       path: '/doctor',
       builder: (context, state) => const ReservationPage(),
+    ),
+    GoRoute(
+      path: '/rdv',
+      builder: (context, state) => const MyRdvPage(),
     ),
   ],
 );

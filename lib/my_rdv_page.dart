@@ -1,13 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart'
+    hide EmailAuthProvider, PhoneAuthProvider;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'app_state.dart';
 
-class ClassmentPage extends StatelessWidget {
-  const ClassmentPage({Key? key}) : super(key: key);
+class MyRdvPage extends StatefulWidget {
+  const MyRdvPage({Key? key}) : super(key: key);
 
+  @override
+  State<MyRdvPage> createState() => _MyRdvPageState();
+}
+
+class _MyRdvPageState extends State<MyRdvPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,12 +25,11 @@ class ClassmentPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('PME App'),
+              child: Text('Clinick App'),
             ),
             ListTile(
               title: const Text('Accueil'),
               onTap: () {
-                Navigator.pop(context);
                 context.push('/');
               },
             ),
@@ -38,7 +43,7 @@ class ClassmentPage extends StatelessWidget {
               ),
             if (context.watch<ApplicationState>().loggedIn)
               ListTile(
-                title: const Text('Classement'),
+                title: const Text('Mes rendez-vous'),
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -65,40 +70,38 @@ class ClassmentPage extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                   FirebaseAuth.instance.signOut();
-                  context.push('/');
                 },
               ),
           ],
         ),
       ),
       appBar: AppBar(
-        title: const Text('Classement'),
+        title: const Text('Mes RDV'),
       ),
       body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          const SizedBox(height: 8),
-          // faire des cards avec les produits vendu par le user
-          // for (var product in context.watch<ApplicationState>().getProducts)
-          //   Card(
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: <Widget>[
-          //         ListTile(
-          //           leading: const Icon(Icons.album),
-          //           title: Text(product.name),
-          //           subtitle: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               // Text('${product.product} | ${product.amount}€'),
-          //               // Text('${product.client}'),
-          //             ],
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          const SizedBox(height: 8),
-        ]),
+        child: Column(
+          children: [
+            Consumer<ApplicationState>(
+              builder: (context, appState, child) {
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: appState.rdvs.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
+                          title: Text(
+                              'Avec Dr ${appState.rdvs[index].doctor.name} ${appState.rdvs[index].doctor.prenom}'),
+                          subtitle: Text(
+                              'Le ${appState.rdvs[index].date.day}/${appState.rdvs[index].date.month}/${appState.rdvs[index].date.year} à ${appState.rdvs[index].date.hour}:${appState.rdvs[index].date.minute == 0 ? '00' : appState.rdvs[index].date.minute}'),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

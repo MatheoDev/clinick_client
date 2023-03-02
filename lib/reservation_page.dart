@@ -46,6 +46,14 @@ class _ReservationPageState extends State<ReservationPage> {
                   context.push('/profile');
                 },
               ),
+            if (context.watch<ApplicationState>().loggedIn)
+              ListTile(
+                title: const Text('Mes rendez-vous'),
+                onTap: () {
+                  Navigator.pop(context);
+                  context.push('/rdv');
+                },
+              ),
             if (!context.watch<ApplicationState>().loggedIn)
               ListTile(
                 title: const Text('Se connecter'),

@@ -25,6 +25,10 @@ class ApplicationState extends ChangeNotifier {
   List<Booking> _bookings = [];
   List<Booking> get bookings => _bookings;
 
+  StreamSubscription<QuerySnapshot>? _getDBookingUserSubscription;
+  List<Booking> _rdvs = [];
+  List<Booking> get rdvs => _rdvs;
+
   StreamSubscription<QuerySnapshot>? _getDoctorsSubscription;
   List<Doctor> _getDoctors = [];
   List<Doctor> get getDoctors => _getDoctors;
@@ -54,6 +58,21 @@ class ApplicationState extends ChangeNotifier {
               ),
             );
           }
+
+          _getDBookingUserSubscription = FirebaseFirestore.instance
+              .collection('booking')
+              .where('patient',
+                  isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
+              .snapshots()
+              .listen((snapshot) {
+            final slots = snapshot.docs.map((e) => e.data()).toList();
+            List<Booking> rdvs = [];
+            for (final slot in slots) {
+              rdvs.add(Booking.fromJson(slot));
+            }
+            _rdvs = rdvs;
+          });
+
           notifyListeners();
         });
       } else {
