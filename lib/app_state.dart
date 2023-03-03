@@ -83,12 +83,12 @@ class ApplicationState extends ChangeNotifier {
   }
 
   Future<void> getBookings() async {
-    final doctor = await FirebaseFirestore.instance
+    final snapsh = await FirebaseFirestore.instance
         .collection('booking')
         .where('doctor.nom', isEqualTo: selectedDoctor!.name)
         .where('doctor.prenom', isEqualTo: selectedDoctor!.prenom)
         .get();
-    final slots = doctor.docs.map((e) => e.data()).toList();
+    final slots = snapsh.docs.map((e) => e.data()).toList();
     List<Booking> bookings = [];
     for (final slot in slots) {
       bookings.add(Booking.fromJson(slot));
