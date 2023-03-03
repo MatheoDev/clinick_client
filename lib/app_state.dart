@@ -125,22 +125,4 @@ class ApplicationState extends ChangeNotifier {
         element.date.hour == dateTime.hour &&
         element.date.minute == dateTime.minute);
   }
-
-  // Future<DocumentReference> addData(
-  //     String amount, String client, String product) {
-  //   if (!_loggedIn) {
-  //     throw Exception('Must be logged in');
-  //   }
-
-  //   return FirebaseFirestore.instance
-  //       .collection('products')
-  //       .add(<String, dynamic>{
-  //     'amount': amount,
-  //     'client': client,
-  //     'product': product,
-  //     'timestamp': DateTime.now().millisecondsSinceEpoch,
-  //     'name': FirebaseAuth.instance.currentUser!.displayName,
-  //     'userId': FirebaseAuth.instance.currentUser!.uid,
-  //   });
-  // }
 }
