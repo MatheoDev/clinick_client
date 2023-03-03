@@ -89,10 +89,22 @@ class _MyRdvPageState extends State<MyRdvPage> {
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
-                          title: Text(
-                              'Avec Dr ${appState.rdvs[index].doctor.name} ${appState.rdvs[index].doctor.prenom}'),
-                          subtitle: Text(
-                              'Le ${appState.rdvs[index].date.day}/${appState.rdvs[index].date.month}/${appState.rdvs[index].date.year} à ${appState.rdvs[index].date.hour}:${appState.rdvs[index].date.minute == 0 ? '00' : appState.rdvs[index].date.minute}'),
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  'Avec Dr ${appState.rdvs[index].doctor.name} ${appState.rdvs[index].doctor.prenom}'),
+                              Text('Pour ${appState.rdvs[index].type}'),
+                            ],
+                          ),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  'Le ${appState.rdvs[index].date.day}/${appState.rdvs[index].date.month}/${appState.rdvs[index].date.year} à ${appState.rdvs[index].date.hour}:${appState.rdvs[index].date.minute == 0 ? '00' : appState.rdvs[index].date.minute}'),
+                              Text(appState.rdvs[index].doctor.fonction),
+                            ],
+                          ),
                         ),
                       );
                     },

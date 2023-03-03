@@ -16,7 +16,7 @@ class Booking {
     Doctor doctor = Doctor(
       name: json['doctor']['nom'],
       prenom: json['doctor']['prenom'],
-      fonction: '',
+      fonction: json['doctor']['fonction'],
     );
     // json['date'] = Timestamp(seconds=1677762000, nanoseconds=891000000)
     DateTime date = DateTime.fromMillisecondsSinceEpoch(
@@ -32,7 +32,11 @@ class Booking {
   Map<String, dynamic> toJson() {
     return {
       'patient': patient,
-      'doctor': {'nom': doctor.name, 'prenom': doctor.prenom},
+      'doctor': {
+        'nom': doctor.name,
+        'prenom': doctor.prenom,
+        'fonction': doctor.fonction
+      },
       'date': date,
       'type': type,
     };
